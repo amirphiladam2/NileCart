@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 import { Product } from '@/components/ProductCard';
+import { DeliveryAddress } from '@/components/DeliveryAddressForm';
 
 export interface CartItem extends Product {
   quantity: number;
@@ -79,7 +80,7 @@ interface CartContextType extends CartState {
   removeItem: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
-  generateWhatsAppMessage: () => string;
+  generateWhatsAppMessage: (deliveryAddress?: DeliveryAddress) => string;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -103,10 +104,10 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     dispatch({ type: 'CLEAR_CART' });
   };
 
-  const generateWhatsAppMessage = () => {
+  const generateWhatsAppMessage = (deliveryAddress?: DeliveryAddress) => {
     if (state.items.length === 0) return '';
     
-    let message = `*NileCart Order Request*\n\n`;
+    let message = `*NileCart Order Request - South Sudan*\n\n`;
     message += `Hello! I would like to place an order for the following items:\n\n`;
     
     state.items.forEach((item, index) => {
@@ -118,7 +119,21 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     });
     
     message += `*Total Amount: $${state.total.toFixed(2)}*\n\n`;
-    message += `Please confirm availability and provide payment instructions. Thank you!`;
+    
+    if (deliveryAddress) {
+      message += `*Delivery Address:*\n`;
+      message += `Name: ${deliveryAddress.fullName}\n`;
+      message += `Phone: ${deliveryAddress.phoneNumber}\n`;
+      message += `Address: ${deliveryAddress.street}\n`;
+      message += `City: ${deliveryAddress.city}, ${deliveryAddress.state}\n`;
+      if (deliveryAddress.landmark) {
+        message += `Landmark: ${deliveryAddress.landmark}\n`;
+      }
+      message += `\n`;
+    }
+    
+    message += `*Payment Method:* Cash on Delivery (COD)\n\n`;
+    message += `Please confirm availability and estimated delivery time. Thank you!`;
     
     return encodeURIComponent(message);
   };

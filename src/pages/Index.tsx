@@ -57,7 +57,7 @@ const Index = () => {
             Welcome to <span className="bg-gradient-secondary bg-clip-text text-transparent">NileCart</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto opacity-90">
-            Discover premium products across Electronics, Groceries, and Fashion
+            Discover premium products across Electronics, Groceries, Fashion, and Home
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-secondary hover:bg-secondary-hover text-secondary-foreground font-semibold px-8">
@@ -105,11 +105,20 @@ const Index = () => {
       </div>
 
       <CategorySection
-        title="Fashion"
-        href="/category/fashion"
-        products={getProductsByCategory('Fashion')}
+        title="Home"
+        href="/category/home"
+        products={getProductsByCategory('Home')}
         onAddToCart={handleAddToCart}
       />
+
+      <div className="bg-muted/20">
+        <CategorySection
+          title="Fashion"
+          href="/category/fashion"
+          products={getProductsByCategory('Fashion')}
+          onAddToCart={handleAddToCart}
+        />
+      </div>
 
       {/* CTA Section */}
       <section className="py-16 bg-gradient-primary">
@@ -145,6 +154,7 @@ const Index = () => {
                 <li><Link to="/category/electronics" className="hover:text-secondary transition-colors">Electronics</Link></li>
                 <li><Link to="/category/groceries" className="hover:text-secondary transition-colors">Groceries</Link></li>
                 <li><Link to="/category/fashion" className="hover:text-secondary transition-colors">Fashion</Link></li>
+                <li><Link to="/category/home" className="hover:text-secondary transition-colors">Home</Link></li>
               </ul>
             </div>
             <div>
