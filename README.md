@@ -10,124 +10,122 @@ A modern e-commerce web application built for South Sudan, featuring WhatsApp-ba
 - 🔐 **User Authentication**: Secure signup/signin with Supabase
 - 📍 **Delivery Address**: Collect delivery information for orders
 - 🎨 **Modern UI**: Beautiful, responsive design with Tailwind CSS and shadcn/ui
-
-## Project info
-
-**URL**: https://lovable.dev/projects/7f16444a-4c26-476a-984b-a32644450025
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/7f16444a-4c26-476a-984b-a32644450025) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- **Frontend**: Vite, TypeScript, React
-- **UI Components**: shadcn/ui, Tailwind CSS
-- **Authentication**: Supabase Auth
-- **Database**: Supabase PostgreSQL
-- **State Management**: React Context API
-- **Routing**: React Router DOM
-- **Form Handling**: React Hook Form with Zod validation
-- **Icons**: Lucide React
+- 💰 **SSP Currency**: South Sudanese Pound pricing
+- 👤 **User Profiles**: Account management and order history
 
 ## Quick Start
 
-1. **Clone and install dependencies**:
+1. **Clone the repository**
    ```bash
-   git clone <YOUR_GIT_URL>
-   cd nilecart-chat-cart
+   git clone https://github.com/amirphiladam2/NileCart.git
+   cd NileCart
+   ```
+
+2. **Install dependencies**
+   ```bash
    npm install
    ```
 
-2. **Start development server**:
+3. **Set up environment variables**
+   ```bash
+   cp env.example .env.local
+   ```
+   Edit `.env.local` with your actual values:
+   ```env
+   VITE_SUPABASE_URL=your_supabase_project_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   VITE_WHATSAPP_NUMBER=+211900000000
+   ```
+
+4. **Start development server**
    ```bash
    npm run dev
    ```
 
-3. **Open in browser**: http://localhost:8080
+5. **Open your browser**
+   Navigate to `http://localhost:5173`
 
-## Testing Signup Functionality
+## Testing Signup
 
-If you're experiencing issues with the signup functionality:
-
-1. Navigate to `/auth` page
-2. Use the "Auth Debug" section to test Supabase connection
-3. Check browser console for error messages
-4. See [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) for detailed troubleshooting steps
+1. Go to `/auth` page
+2. Click "Sign Up" tab
+3. Enter email and password
+4. Check your email for confirmation link
+5. Click the link to confirm your account
 
 ## Deployment
 
-The application is ready for deployment:
+### Vercel (Recommended)
 
-1. **Build for production**:
-   ```bash
-   npm run build
-   ```
+1. **Connect GitHub to Vercel**
+   - Go to [vercel.com](https://vercel.com)
+   - Sign in with GitHub
+   - Click "New Project"
+   - Import your NileCart repository
 
-2. **Deploy the `dist` folder** to your hosting provider
+2. **Set Environment Variables**
+   - Go to Project Settings → Environment Variables
+   - Add all variables from `env.example`
 
-3. **Set environment variables** (if needed):
-   - `VITE_SUPABASE_URL`: Your Supabase project URL
-   - `VITE_SUPABASE_ANON_KEY`: Your Supabase anon key
-   - `VITE_WHATSAPP_NUMBER`: Your WhatsApp business number
+3. **Deploy**
+   - Click "Deploy"
+   - Your app will be live at `https://your-app.vercel.app`
 
-4. **Configure redirect URL** in your Supabase project:
-   - Go to Authentication > URL Configuration
-   - Add your domain's auth page (e.g., `https://yourdomain.com/auth`) to the redirect URLs
-   - For mobile apps, you can also add custom schemes like `nilecart://auth/callback`
+### Other Platforms
 
-## How can I deploy this project?
+This is a standard Vite + React application that can be deployed to:
+- Netlify
+- GitHub Pages
+- AWS Amplify
+- Any platform supporting Node.js
 
-Simply open [Lovable](https://lovable.dev/projects/7f16444a-4c26-476a-984b-a32644450025) and click on Share -> Publish.
+## Environment Variables
 
-## Can I connect a custom domain to my Lovable project?
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `VITE_SUPABASE_URL` | Your Supabase project URL | Yes |
+| `VITE_SUPABASE_ANON_KEY` | Your Supabase anonymous key | Yes |
+| `VITE_WHATSAPP_NUMBER` | WhatsApp number for orders | Yes |
 
-Yes, you can!
+## Tech Stack
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- **Frontend**: React 18 + TypeScript
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Build Tool**: Vite
+- **Authentication**: Supabase Auth
+- **State Management**: React Context API
+- **Routing**: React Router DOM
+- **Forms**: React Hook Form + Zod validation
+- **Icons**: Lucide React
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+├── context/            # React Context providers
+├── data/              # Sample data and utilities
+├── hooks/             # Custom React hooks
+├── integrations/      # External service integrations
+├── lib/               # Utility functions
+├── pages/             # Page components
+└── assets/            # Static assets
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## Support
+
+For issues and questions:
+- Create an issue on GitHub
+- Check the [TROUBLESHOOTING.md](TROUBLESHOOTING.md) file
+
+## License
+
+This project is licensed under the MIT License.
