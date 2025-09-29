@@ -257,7 +257,6 @@ export type Database = {
     }
     Enums: {
       order_status: "pending" | "confirmed" | "delivered" | "cancelled"
-      user_role: "buyer" | "seller" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never

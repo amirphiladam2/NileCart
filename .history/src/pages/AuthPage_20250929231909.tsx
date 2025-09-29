@@ -69,15 +69,8 @@ const AuthPage = () => {
       }
     }
 
-    if (isSignup) {
-      // Name validation
-      if (!form.name || form.name.trim().length < 2) {
-        newErrors.name = 'Name must be at least 2 characters';
-      }
-
-      if (form.password !== form.confirmPassword) {
-        newErrors.confirmPassword = 'Passwords do not match';
-      }
+    if (isSignup && form.password !== form.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
     }
 
     setErrors(newErrors);

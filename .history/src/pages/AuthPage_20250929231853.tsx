@@ -69,15 +69,8 @@ const AuthPage = () => {
       }
     }
 
-    if (isSignup) {
-      // Name validation
-      if (!form.name || form.name.trim().length < 2) {
-        newErrors.name = 'Name must be at least 2 characters';
-      }
-
-      if (form.password !== form.confirmPassword) {
-        newErrors.confirmPassword = 'Passwords do not match';
-      }
+    if (isSignup && form.password !== form.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
     }
 
     setErrors(newErrors);
@@ -203,41 +196,24 @@ const AuthPage = () => {
                 </form>
               </TabsContent>
 
-                  <TabsContent value="signup">
-                    <form onSubmit={handleSignup} className="space-y-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="signup-name">Full Name</Label>
-                        <div className="relative">
-                          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                          <Input
-                            id="signup-name"
-                            type="text"
-                            placeholder="Enter your full name"
-                            className="pl-10"
-                            value={signupForm.name}
-                            onChange={(e) => setSignupForm({ ...signupForm, name: e.target.value })}
-                            required
-                          />
-                        </div>
-                        {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
-                      </div>
-
-                      <div className="space-y-2">
-                        <Label htmlFor="signup-email">Email</Label>
-                        <div className="relative">
-                          <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                          <Input
-                            id="signup-email"
-                            type="email"
-                            placeholder="Enter your email"
-                            className="pl-10"
-                            value={signupForm.email}
-                            onChange={(e) => setSignupForm({ ...signupForm, email: e.target.value })}
-                            required
-                          />
-                        </div>
-                        {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
-                      </div>
+              <TabsContent value="signup">
+                <form onSubmit={handleSignup} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-email">Email</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                      <Input
+                        id="signup-email"
+                        type="email"
+                        placeholder="Enter your email"
+                        className="pl-10"
+                        value={signupForm.email}
+                        onChange={(e) => setSignupForm({ ...signupForm, email: e.target.value })}
+                        required
+                      />
+                    </div>
+                    {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+                  </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="signup-password">Password</Label>

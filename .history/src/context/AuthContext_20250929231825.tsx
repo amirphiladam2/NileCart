@@ -46,7 +46,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         // Handle sign out event
         if (event === 'SIGNED_OUT') {
           setUserRole(null);
-          setUserName(null);
           setLoading(false);
           return;
         }
@@ -302,7 +301,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(null);
       setSession(null);
       setUserRole(null);
-      setUserName(null);
       
       const { error } = await supabase.auth.signOut();
       if (error) {
@@ -375,7 +373,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     session,
     loading,
     userRole,
-    userName,
     signUp,
     signIn,
     resetPassword,

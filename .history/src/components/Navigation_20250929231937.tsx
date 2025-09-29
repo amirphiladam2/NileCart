@@ -100,7 +100,7 @@ const Navigation = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem disabled className="font-medium">
-                    {userName || user.email}
+                    {user.email}
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => navigate('/orders')}>
@@ -190,9 +190,9 @@ const Navigation = () => {
               <div className="border-t border-border pt-4 space-y-2">
                 {user ? (
                   <>
-                        <div className="px-2 py-1 text-sm text-muted-foreground">
-                          {userName || user.email}
-                        </div>
+                    <div className="px-2 py-1 text-sm text-muted-foreground">
+                      {user.email}
+                    </div>
                     <Button 
                       variant="ghost" 
                       className="w-full justify-start"

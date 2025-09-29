@@ -46,7 +46,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         // Handle sign out event
         if (event === 'SIGNED_OUT') {
           setUserRole(null);
-          setUserName(null);
           setLoading(false);
           return;
         }
@@ -81,63 +80,24 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const { data, error } = await supabase
         .from('users')
-        .select('role, name')
+        .select('role')
         .eq('id', userId)
         .single();
       
       if (error) {
-        console.error('Error fetching user data:', error);
+        console.error('Error fetching user role:', error);
         setUserRole('buyer'); // Default role
-        setUserName(null);
       } else {
         setUserRole(data?.role || 'buyer');
-        setUserName(data?.name || null);
       }
     } catch (err) {
-      console.error('Error fetching user data:', err);
+      console.error('Error fetching user role:', err);
       setUserRole('buyer'); // Default role
-      setUserName(null);
     }
   };
 
-  const signUp = async (email: string, password: string, name: string, role: string = 'buyer') => {
+  const signUp = async (email: string, password: string, role: string = 'buyer') => {
     try {
-      // Validate name
-      if (!name || name.trim().length < 2) {
-        toast({
-          title: "Invalid name",
-          description: "Please enter a valid name with at least 2 characters.",
-          variant: "destructive"
-        });
-        return { error: { message: "Name is required and must be at least 2 characters" } };
-      }
-
-      // Check if user already exists
-      const { data: existingUser, error: checkError } = await supabase
-        .from('users')
-        .select('id, email')
-        .eq('email', email)
-        .single();
-
-      if (existingUser) {
-        toast({
-          title: "Account already exists",
-          description: "An account with this email already exists. Please sign in instead.",
-          variant: "destructive"
-        });
-        return { error: { message: "Account already exists" } };
-      }
-
-      if (checkError && checkError.code !== 'PGRST116') { // PGRST116 is "not found" error
-        console.error('Error checking existing user:', checkError);
-        toast({
-          title: "Sign up failed",
-          description: "Unable to verify account status. Please try again.",
-          variant: "destructive"
-        });
-        return { error: checkError };
-      }
-
       const redirectUrl = `${window.location.origin}/auth?confirmed=true`;
       
       const { data, error } = await supabase.auth.signUp({
@@ -166,7 +126,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
               .insert({
                 id: data.user.id,
                 email: data.user.email,
-                name: name.trim(),
                 role: role
               });
 
@@ -302,7 +261,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(null);
       setSession(null);
       setUserRole(null);
-      setUserName(null);
       
       const { error } = await supabase.auth.signOut();
       if (error) {
@@ -375,7 +333,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     session,
     loading,
     userRole,
-    userName,
     signUp,
     signIn,
     resetPassword,
