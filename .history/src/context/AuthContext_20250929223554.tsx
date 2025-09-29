@@ -11,7 +11,7 @@ interface AuthContextType {
   signUp: (email: string, password: string, role?: string) => Promise<{ error: any }>;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   resetPassword: (email: string) => Promise<{ error: any }>;
-  signOut: () => Promise<{ error: any }>;
+  signOut: () => Promise<void>;
   updateUserRole: (role: string) => Promise<{ error: any }>;
 }
 
@@ -36,17 +36,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        console.log('Auth state change:', event, session?.user?.id);
-        
         setSession(session);
         setUser(session?.user ?? null);
-        
-        // Handle sign out event
-        if (event === 'SIGNED_OUT') {
-          setUserRole(null);
-          setLoading(false);
-          return;
-        }
         
         // Fetch user role if user is logged in
         if (session?.user) {
@@ -253,7 +244,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const signOut = async () => {
     try {
-      console.log('Starting sign out process...');
       const { error } = await supabase.auth.signOut();
       if (error) {
         console.error('Sign out error:', error);
@@ -264,8 +254,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         });
         return { error };
       } else {
-        console.log('Sign out successful, clearing local state...');
-        // Clear local state immediately
+        // Clear local state
         setUser(null);
         setSession(null);
         setUserRole(null);
