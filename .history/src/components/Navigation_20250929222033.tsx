@@ -114,12 +114,7 @@ const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-2">
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="relative"
-              onClick={() => navigate('/cart')}
-            >
+            <Button variant="ghost" size="sm" className="relative">
               <ShoppingCart className="w-5 h-5" />
               {itemCount > 0 && (
                 <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs bg-secondary text-secondary-foreground">
