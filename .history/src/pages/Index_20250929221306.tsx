@@ -77,19 +77,10 @@ const Index = () => {
             Discover premium products across Electronics, Groceries, Fashion, and Home
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
-              className="bg-secondary hover:bg-secondary-hover text-secondary-foreground font-semibold px-8"
-              onClick={handleShopNow}
-            >
+            <Button size="lg" className="bg-secondary hover:bg-secondary-hover text-secondary-foreground font-semibold px-8">
               Shop Now
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-primary bg-transparent"
-              onClick={handleBrowseCategories}
-            >
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary bg-transparent">
               Browse Categories
             </Button>
           </div>
@@ -114,14 +105,12 @@ const Index = () => {
       </section>
 
       {/* Product Categories */}
-      <div data-category="electronics">
-        <CategorySection
-          title="Electronics"
-          href="/category/electronics"
-          products={getProductsByCategory('Electronics')}
-          onAddToCart={handleAddToCart}
-        />
-      </div>
+      <CategorySection
+        title="Electronics"
+        href="/category/electronics"
+        products={getProductsByCategory('Electronics')}
+        onAddToCart={handleAddToCart}
+      />
 
       <div className="bg-muted/20">
         <CategorySection

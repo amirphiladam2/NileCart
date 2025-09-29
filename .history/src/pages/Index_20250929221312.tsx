@@ -114,14 +114,12 @@ const Index = () => {
       </section>
 
       {/* Product Categories */}
-      <div data-category="electronics">
-        <CategorySection
-          title="Electronics"
-          href="/category/electronics"
-          products={getProductsByCategory('Electronics')}
-          onAddToCart={handleAddToCart}
-        />
-      </div>
+      <CategorySection
+        title="Electronics"
+        href="/category/electronics"
+        products={getProductsByCategory('Electronics')}
+        onAddToCart={handleAddToCart}
+      />
 
       <div className="bg-muted/20">
         <CategorySection

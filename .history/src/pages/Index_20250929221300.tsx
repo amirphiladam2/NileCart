@@ -11,26 +11,9 @@ import heroImage from "@/assets/hero-image.png";
 
 const Index = () => {
   const { addItem } = useCart();
-  const navigate = useNavigate();
 
   const handleAddToCart = (product: any) => {
     addItem(product);
-  };
-
-  const handleShopNow = () => {
-    // Scroll to the first category section
-    const firstCategory = document.querySelector('[data-category="electronics"]');
-    if (firstCategory) {
-      firstCategory.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleBrowseCategories = () => {
-    // Navigate to a general categories page or scroll to categories
-    const categoriesSection = document.querySelector('[data-category="electronics"]');
-    if (categoriesSection) {
-      categoriesSection.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   const features = [
@@ -77,19 +60,10 @@ const Index = () => {
             Discover premium products across Electronics, Groceries, Fashion, and Home
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
-              className="bg-secondary hover:bg-secondary-hover text-secondary-foreground font-semibold px-8"
-              onClick={handleShopNow}
-            >
+            <Button size="lg" className="bg-secondary hover:bg-secondary-hover text-secondary-foreground font-semibold px-8">
               Shop Now
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-primary bg-transparent"
-              onClick={handleBrowseCategories}
-            >
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary bg-transparent">
               Browse Categories
             </Button>
           </div>
@@ -114,14 +88,12 @@ const Index = () => {
       </section>
 
       {/* Product Categories */}
-      <div data-category="electronics">
-        <CategorySection
-          title="Electronics"
-          href="/category/electronics"
-          products={getProductsByCategory('Electronics')}
-          onAddToCart={handleAddToCart}
-        />
-      </div>
+      <CategorySection
+        title="Electronics"
+        href="/category/electronics"
+        products={getProductsByCategory('Electronics')}
+        onAddToCart={handleAddToCart}
+      />
 
       <div className="bg-muted/20">
         <CategorySection
