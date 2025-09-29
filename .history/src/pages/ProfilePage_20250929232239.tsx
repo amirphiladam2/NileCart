@@ -6,8 +6,13 @@ import { User, Mail, Calendar } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 
 const ProfilePage = () => {
-  const { user, userName } = useAuth();
+  const { user, signOut } = useAuth();
   const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   if (!user) {
     return (
@@ -44,14 +49,6 @@ const ProfilePage = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center gap-3">
-                <User className="w-4 h-4 text-muted-foreground" />
-                <div>
-                  <p className="text-sm text-muted-foreground">Name</p>
-                  <p className="font-medium">{userName || 'Not provided'}</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-muted-foreground" />
                 <div>
                   <p className="text-sm text-muted-foreground">Email</p>
@@ -67,6 +64,17 @@ const ProfilePage = () => {
                     {new Date(user.created_at).toLocaleDateString()}
                   </p>
                 </div>
+              </div>
+              
+              <div className="pt-4 border-t">
+                <Button 
+                  variant="outline" 
+                  onClick={handleSignOut}
+                  className="w-full"
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sign Out
+                </Button>
               </div>
             </CardContent>
           </Card>

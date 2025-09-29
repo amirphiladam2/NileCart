@@ -10,42 +10,9 @@ import ProductUploadForm from '@/components/ProductUploadForm';
 import MyProducts from '@/components/MyProducts';
 
 const SellerDashboard = () => {
-  const { user, userRole, userName, loading } = useAuth();
+  const { user, userRole, userName } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('upload');
-
-  // Show loading while checking authentication
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Card className="w-full max-w-md">
-          <CardContent className="p-8 text-center">
-            <h2 className="text-xl font-semibold mb-4">Loading...</h2>
-            <p className="text-muted-foreground">Please wait while we verify your access.</p>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
-  // Redirect if not authenticated
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <Card className="w-full max-w-md">
-          <CardContent className="p-8 text-center">
-            <h2 className="text-xl font-semibold mb-4">Please sign in</h2>
-            <p className="text-muted-foreground mb-6">
-              You need to be signed in to access the seller dashboard.
-            </p>
-            <Button onClick={() => navigate('/auth')}>
-              Sign In
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
 
   // Redirect if not a seller
   if (userRole !== 'seller' && userRole !== 'admin') {
@@ -59,6 +26,24 @@ const SellerDashboard = () => {
             </p>
             <Button onClick={() => navigate('/')}>
               Go Home
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Card className="w-full max-w-md">
+          <CardContent className="p-8 text-center">
+            <h2 className="text-xl font-semibold mb-4">Please sign in</h2>
+            <p className="text-muted-foreground mb-6">
+              You need to be signed in to access the seller dashboard.
+            </p>
+            <Button onClick={() => navigate('/auth')}>
+              Sign In
             </Button>
           </CardContent>
         </Card>
@@ -94,7 +79,7 @@ const SellerDashboard = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Package className="w-5 h-5" />
-                Welcome, {userName || user.email}
+                Welcome, {user.email}
               </CardTitle>
             </CardHeader>
             <CardContent>
