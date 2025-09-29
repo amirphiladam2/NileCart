@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ShoppingCart, Mail, Lock, User } from 'lucide-react';
 import { z } from 'zod';
 import AuthDebug from '@/components/AuthDebug';
@@ -95,7 +94,7 @@ const AuthPage = () => {
     if (!validateForm(signupForm, true)) return;
 
     setIsLoading(true);
-    const { error } = await signUp(signupForm.email, signupForm.password, signupForm.role);
+    const { error } = await signUp(signupForm.email, signupForm.password);
     setIsLoading(false);
   };
 
@@ -247,25 +246,6 @@ const AuthPage = () => {
                       />
                     </div>
                     {errors.confirmPassword && <p className="text-sm text-destructive">{errors.confirmPassword}</p>}
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-role">Account Type</Label>
-                    <Select 
-                      value={signupForm.role} 
-                      onValueChange={(value) => setSignupForm({ ...signupForm, role: value })}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select account type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="buyer">Buyer - Shop and purchase products</SelectItem>
-                        <SelectItem value="seller">Seller - Sell products on the marketplace</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <p className="text-xs text-muted-foreground">
-                      You can change this later in your profile settings.
-                    </p>
                   </div>
 
                   <Button type="submit" className="w-full" disabled={isLoading}>

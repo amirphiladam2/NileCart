@@ -95,7 +95,7 @@ const AuthPage = () => {
     if (!validateForm(signupForm, true)) return;
 
     setIsLoading(true);
-    const { error } = await signUp(signupForm.email, signupForm.password, signupForm.role);
+    const { error } = await signUp(signupForm.email, signupForm.password);
     setIsLoading(false);
   };
 

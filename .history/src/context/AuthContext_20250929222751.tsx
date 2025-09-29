@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const signUp = async (email: string, password: string, role: string = 'buyer') => {
+  const signUp = async (email: string, password: string) => {
     try {
       const redirectUrl = `${window.location.origin}/auth?confirmed=true`;
       
@@ -106,27 +106,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         });
       } else {
         console.log('Signup success:', data);
-        
-        // Create user record with role if user was created
-        if (data.user) {
-          try {
-            const { error: userError } = await supabase
-              .from('users')
-              .insert({
-                id: data.user.id,
-                email: data.user.email,
-                role: role
-              });
-
-            if (userError) {
-              console.error('Error creating user record:', userError);
-              // Don't fail the signup if user record creation fails
-            }
-          } catch (err) {
-            console.error('Error creating user record:', err);
-            // Don't fail the signup if user record creation fails
-          }
-        }
         
         // Check if email confirmation is required
         if (data.user && !data.user.email_confirmed_at) {
@@ -251,7 +230,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         variant: "destructive"
       });
     } else {
-      setUserRole(null);
       toast({
         title: "Signed out",
         description: "You have been successfully signed out."
@@ -259,53 +237,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const updateUserRole = async (role: string) => {
-    if (!user) return { error: { message: 'No user logged in' } };
-    
-    try {
-      const { error } = await supabase
-        .from('users')
-        .update({ role })
-        .eq('id', user.id);
-      
-      if (error) {
-        console.error('Error updating user role:', error);
-        toast({
-          title: "Role update failed",
-          description: error.message,
-          variant: "destructive"
-        });
-        return { error };
-      } else {
-        setUserRole(role);
-        toast({
-          title: "Role updated",
-          description: `Your role has been updated to ${role}.`
-        });
-        return { error: null };
-      }
-    } catch (err) {
-      console.error('Error updating user role:', err);
-      const errorMessage = err instanceof Error ? err.message : 'An unexpected error occurred';
-      toast({
-        title: "Role update failed",
-        description: errorMessage,
-        variant: "destructive"
-      });
-      return { error: { message: errorMessage } };
-    }
-  };
-
   const value = {
     user,
     session,
     loading,
-    userRole,
     signUp,
     signIn,
     resetPassword,
-    signOut,
-    updateUserRole
+    signOut
   };
 
   return (

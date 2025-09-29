@@ -107,27 +107,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       } else {
         console.log('Signup success:', data);
         
-        // Create user record with role if user was created
-        if (data.user) {
-          try {
-            const { error: userError } = await supabase
-              .from('users')
-              .insert({
-                id: data.user.id,
-                email: data.user.email,
-                role: role
-              });
-
-            if (userError) {
-              console.error('Error creating user record:', userError);
-              // Don't fail the signup if user record creation fails
-            }
-          } catch (err) {
-            console.error('Error creating user record:', err);
-            // Don't fail the signup if user record creation fails
-          }
-        }
-        
         // Check if email confirmation is required
         if (data.user && !data.user.email_confirmed_at) {
           // Check if email confirmation was actually sent
@@ -300,12 +279,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     user,
     session,
     loading,
-    userRole,
     signUp,
     signIn,
     resetPassword,
-    signOut,
-    updateUserRole
+    signOut
   };
 
   return (

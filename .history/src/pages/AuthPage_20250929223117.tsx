@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ShoppingCart, Mail, Lock, User } from 'lucide-react';
 import { z } from 'zod';
 import AuthDebug from '@/components/AuthDebug';
@@ -95,7 +94,7 @@ const AuthPage = () => {
     if (!validateForm(signupForm, true)) return;
 
     setIsLoading(true);
-    const { error } = await signUp(signupForm.email, signupForm.password, signupForm.role);
+    const { error } = await signUp(signupForm.email, signupForm.password);
     setIsLoading(false);
   };
 
