@@ -1,13 +1,23 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ShoppingCart, User, Menu, X, Search } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { ShoppingCart, User, Menu, X, Search, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/context/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [cartCount] = useState(0); // This will be managed by cart context later
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   const categories = [
     { name: "Electronics", href: "/category/electronics" },
@@ -63,9 +73,36 @@ const Navigation = () => {
               )}
             </Button>
             
-            <Button variant="ghost" size="sm">
-              <User className="w-5 h-5" />
-            </Button>
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm">
+                    <User className="w-5 h-5" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem disabled className="font-medium">
+                    {user.email}
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => navigate('/orders')}>
+                    My Orders
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/profile')}>
+                    Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={signOut} className="text-destructive">
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button variant="ghost" size="sm" onClick={() => navigate('/auth')}>
+                <User className="w-5 h-5" />
+              </Button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -113,11 +150,59 @@ const Navigation = () => {
                   {category.name}
                 </Link>
               ))}
-              <div className="border-t border-border pt-4">
-                <Button variant="ghost" className="w-full justify-start">
-                  <User className="w-5 h-5 mr-2" />
-                  Account
-                </Button>
+              <div className="border-t border-border pt-4 space-y-2">
+                {user ? (
+                  <>
+                    <div className="px-2 py-1 text-sm text-muted-foreground">
+                      {user.email}
+                    </div>
+                    <Button 
+                      variant="ghost" 
+                      className="w-full justify-start"
+                      onClick={() => {
+                        navigate('/orders');
+                        setIsMenuOpen(false);
+                      }}
+                    >
+                      <User className="w-5 h-5 mr-2" />
+                      My Orders
+                    </Button>
+                    <Button 
+                      variant="ghost" 
+                      className="w-full justify-start"
+                      onClick={() => {
+                        navigate('/profile');
+                        setIsMenuOpen(false);
+                      }}
+                    >
+                      <User className="w-5 h-5 mr-2" />
+                      Profile
+                    </Button>
+                    <Button 
+                      variant="ghost" 
+                      className="w-full justify-start text-destructive"
+                      onClick={() => {
+                        signOut();
+                        setIsMenuOpen(false);
+                      }}
+                    >
+                      <LogOut className="w-5 h-5 mr-2" />
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
+                  <Button 
+                    variant="ghost" 
+                    className="w-full justify-start"
+                    onClick={() => {
+                      navigate('/auth');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <User className="w-5 h-5 mr-2" />
+                    Sign In
+                  </Button>
+                )}
               </div>
             </div>
           </div>
