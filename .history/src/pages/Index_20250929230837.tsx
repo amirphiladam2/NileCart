@@ -12,7 +12,6 @@ import heroImage from "@/assets/hero-image.png";
 
 const Index = () => {
   const { addItem } = useCart();
-  const { user } = useAuth();
   const navigate = useNavigate();
 
   const handleAddToCart = (product: any) => {
@@ -33,10 +32,6 @@ const Index = () => {
     if (categoriesSection) {
       categoriesSection.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-
-  const handleCreateAccount = () => {
-    navigate('/auth');
   };
 
   const features = [
@@ -158,23 +153,14 @@ const Index = () => {
       <section className="py-16 bg-gradient-primary">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-            {user ? "Ready to Continue Shopping?" : "Ready to Start Shopping?"}
+            Ready to Start Shopping?
           </h2>
           <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
-            {user 
-              ? "Discover more amazing products and continue your shopping journey"
-              : "Join thousands of satisfied customers and discover your next favorite product"
-            }
+            Join thousands of satisfied customers and discover your next favorite product
           </p>
-          {!user && (
-            <Button 
-              size="lg" 
-              className="bg-secondary hover:bg-secondary-hover text-secondary-foreground font-semibold px-12"
-              onClick={handleCreateAccount}
-            >
-              Create Account
-            </Button>
-          )}
+          <Button size="lg" className="bg-secondary hover:bg-secondary-hover text-secondary-foreground font-semibold px-12">
+            Create Account
+          </Button>
         </div>
       </section>
 

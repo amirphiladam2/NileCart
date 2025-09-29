@@ -118,7 +118,7 @@ const HelpCenter = () => {
       title: "Email Support",
       description: "Send us an email",
       action: "Email us",
-      href: "mailto:nilecart93@gmail.com"
+      href: "mailto:nilecart@gmail.com"
     },
     {
       icon: Phone,

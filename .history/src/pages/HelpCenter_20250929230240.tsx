@@ -111,14 +111,14 @@ const HelpCenter = () => {
       title: "WhatsApp Support",
       description: "Get instant help via WhatsApp",
       action: "Chat with us",
-      href: "https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER}"
+      href: "https://wa.me/${VITE_WHATSAPP_NUMBER}"
     },
     {
       icon: Mail,
       title: "Email Support",
       description: "Send us an email",
       action: "Email us",
-      href: "mailto:nilecart93@gmail.com"
+      href: "mailto:nilecart@gmail.com"
     },
     {
       icon: Phone,
