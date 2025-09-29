@@ -28,14 +28,6 @@ const Navigation = () => {
     { name: "Home", href: "/category/home" },
   ];
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery('');
-    }
-  };
-
   return (
     <nav className="bg-background border-b border-border sticky top-0 z-50 backdrop-blur-md">
       <div className="container mx-auto px-4">
@@ -54,15 +46,13 @@ const Navigation = () => {
 
           {/* Desktop Search Bar */}
           <div className="hidden md:flex flex-1 max-w-md mx-8">
-            <form onSubmit={handleSearch} className="relative w-full">
+            <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
                 placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 bg-muted/50 border-0 focus:ring-2 focus:ring-primary/20"
               />
-            </form>
+            </div>
           </div>
 
           {/* Desktop Navigation */}
@@ -153,15 +143,13 @@ const Navigation = () => {
 
         {/* Mobile Search Bar */}
         <div className="md:hidden pb-4">
-          <form onSubmit={handleSearch} className="relative">
+          <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
               placeholder="Search products..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 bg-muted/50 border-0 focus:ring-2 focus:ring-primary/20"
             />
-          </form>
+          </div>
         </div>
 
         {/* Mobile Menu */}

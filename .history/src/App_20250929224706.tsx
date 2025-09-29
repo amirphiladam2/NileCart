@@ -29,22 +29,17 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/auth" element={<AuthPage />} />
-                  <Route path="/cart" element={<CartPage />} />
-                  <Route path="/search" element={<SearchPage />} />
-                  <Route path="/category/:category" element={<CategoryPage />} />
-                  <Route path="/profile" element={<ProfilePage />} />
-                  <Route path="/orders" element={<OrdersPage />} />
-                  <Route path="/seller" element={<SellerDashboard />} />
-                  <Route path="/help" element={<HelpCenter />} />
-                  <Route path="/returns" element={<ReturnsPage />} />
-                  <Route path="/shipping" element={<ShippingPage />} />
-                  <Route path="/privacy" element={<PrivacyPolicy />} />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/auth" element={<AuthPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/category/:category" element={<CategoryPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/orders" element={<OrdersPage />} />
+              <Route path="/seller" element={<SellerDashboard />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </BrowserRouter>
         </TooltipProvider>
       </CartProvider>
