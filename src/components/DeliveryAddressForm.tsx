@@ -98,7 +98,7 @@ const DeliveryAddressForm = ({ onSubmit, onCancel }: DeliveryAddressFormProps) =
                 id="city"
                 value={address.city}
                 onChange={(e) => handleInputChange('city', e.target.value)}
-                placeholder="Juba"
+                placeholder="Enter city name"
                 required
               />
             </div>
@@ -108,7 +108,7 @@ const DeliveryAddressForm = ({ onSubmit, onCancel }: DeliveryAddressFormProps) =
                 id="state"
                 value={address.state}
                 onChange={(e) => handleInputChange('state', e.target.value)}
-                placeholder="Central Equatoria"
+                placeholder="Enter state or region"
                 required
               />
             </div>

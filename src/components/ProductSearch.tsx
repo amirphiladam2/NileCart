@@ -214,14 +214,14 @@ const ProductSearch = () => {
                   <div className="flex gap-2">
                     <Input
                       type="number"
-                      placeholder="Min"
+                      placeholder="Minimum price"
                       value={filters.minPrice}
                       onChange={(e) => handleInputChange('minPrice', parseInt(e.target.value) || 0)}
                       className="text-sm"
                     />
                     <Input
                       type="number"
-                      placeholder="Max"
+                      placeholder="Maximum price"
                       value={filters.maxPrice}
                       onChange={(e) => handleInputChange('maxPrice', parseInt(e.target.value) || 1000000)}
                       className="text-sm"
